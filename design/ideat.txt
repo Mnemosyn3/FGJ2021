@@ -1,1 +1,2 @@
 2d platformer. Ideana löydä tiesi kotiin baarista. Matkalla on esteitä kuten lompakon ja avaimien löytäminen.
+Boliisitapaus matkalla.
