@@ -1,3 +1,4 @@
-2d platformer. Ideana löydä tiesi kotiin baarista. Matkalla on esteitä kuten lompakon ja avaimien löytäminen.
+2d platformer. Ideana löydä tiesi kotiin baarista. 
+Matkalla on esteitä kuten lompakon ja avaimien löytäminen. <- Otto
 Boliisitapaus matkalla!!!
 TUOMAS KIRJOITTI TÄMÄ
