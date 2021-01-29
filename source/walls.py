@@ -108,7 +108,10 @@ while running:
     if key[pygame.K_DOWN]:
         player.move(0, 2)
     
-    
+    # Just added this to make it slightly fun ;)
+    if player.rect.colliderect(end_rect):
+        raise SystemExit
+
     # Draw the scene
     screen.fill((0, 0, 0))
     for wall in walls:
