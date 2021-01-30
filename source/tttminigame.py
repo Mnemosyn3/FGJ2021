@@ -206,7 +206,7 @@ while carryOn:
 
         ##GAME LOGIC
         for kyykka in all_coming_kyykka:
-            speed+=0.0015
+            speed+=0.0013
             kyykka.moveDown(speed)
             if kyykka.rect.y > SCREENWIDTH:
                 kyykka.changeSpeed(random.randint(10,50))
@@ -216,12 +216,14 @@ while carryOn:
         reuna_collision_list = pygame.sprite.spritecollide(player, reuna_lista, False)
         #jos osuu reunaan
         for reuna in reuna_collision_list:
+            print(counter)
             print("Ny ossui saatana!")
             webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
             #End Of Game
             carryOn=False
         # jos osuu kyykkään
         for kyykka in kyykka_collision_list:
+            print(counter)
             print("Ny ossui saatana!")
             webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
             #End Of Game
