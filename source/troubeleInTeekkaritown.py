@@ -8,13 +8,13 @@ pygame.display.set_caption("Trouble in Teekkari Town")
 WINDOW_SIZE = (1200,800)
 
 screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
-display = pygame.Surface((150,100)) 
+display = pygame.Surface((300,200)) 
 
 true_scroll = [0,0]
 
-player_image = pygame.image.load("player.png")
-map_image = pygame.image.load("map.png")
-player_image.set_colorkey((255,255,255))
+player_image = pygame.image.load("Hahmo.png")
+map_image = pygame.image.load("MAPv1.png")
+#player_image.set_colorkey((255,255,255))
 
 TILE_SIZE = 32
 
@@ -30,7 +30,7 @@ def load_map(path):
         
     return game_map
 
-game_map = load_map('map')
+game_map = load_map('MAPV1')
 
 def collision_test(rect, tiles):
     hit_list = []
@@ -69,12 +69,12 @@ moving_down = False
 
 
 
-player_rect = pygame.Rect(100,100,player_image.get_width(),player_image.get_height())
+player_rect = pygame.Rect(200,200,player_image.get_width(),player_image.get_height())
 
-end_rect = ""
+
 
 while True:
-    display.fill((255,255,255))
+    display.fill((0,0,0))
 
     true_scroll[0] += (player_rect.x-true_scroll[0]-77)/10
     true_scroll[1] += (player_rect.y-true_scroll[1]-56)/10
@@ -93,13 +93,15 @@ while True:
         for tile in row:
             
             x += 1
-            if tile == "w":
+            if tile == "W":
                 #display.blit((0,0,0), (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
                 pygame.draw.rect(display, (0,0,0), pygame.Rect(x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1], TILE_SIZE,TILE_SIZE))
-            if tile == "e":
+            if tile == "E":
                 end_rect = pygame.Rect(x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1], TILE_SIZE,TILE_SIZE)
+            if tile == "G":
+                test_rect = pygame.Rect(x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1], TILE_SIZE,TILE_SIZE)
                 
-            if tile == "w":
+            if tile == "W":
                 tile_rects.append(pygame.Rect(x * TILE_SIZE,y * TILE_SIZE,TILE_SIZE, TILE_SIZE))
         
         y +=1
@@ -108,23 +110,28 @@ while True:
 
     display.blit((map_image), (32-scroll[0],0-scroll[1]))
     pygame.draw.rect(display, (255, 0, 0), end_rect)
+    pygame.draw.rect(display, (255, 0, 0), test_rect)
     player_movement = [0,0]
 
     if moving_left:
-        player_movement[0]-=1
+        player_movement[0]-=5
     if moving_right:
-        player_movement[0]+=1
+        player_movement[0]+=5
     if moving_up:
-        player_movement[1]-=1
+        player_movement[1]-=5
     if moving_down:
-        player_movement[1]+=1
+        player_movement[1]+=5
 
     player_rect,collisions = move(player_rect,player_movement,tile_rects)
     display.blit(player_image,(player_rect.x - scroll[0],player_rect.y - scroll[1]))
 
 
     if player_rect.colliderect(end_rect):
-        print("Hit e")
+        print("Hit E")
+    if player_rect.colliderect(end_rect):
+        print("Hit G")
+
+
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
