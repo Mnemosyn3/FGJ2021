@@ -1,3 +1,5 @@
+<<<<<<< HEAD
+=======
 import sys, pygame
 pygame.init()
 
@@ -23,3 +25,4 @@ while 1:
     screen.fill(black)
     screen.blit(ball, ballrect)
     pygame.display.flip()
+>>>>>>> 977e66b62214dc2def335c17fe397a9a48aed0c9
