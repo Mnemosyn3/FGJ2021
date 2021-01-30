@@ -119,3 +119,5 @@ while running:
     pygame.draw.rect(screen, (255, 0, 0), end_rect)
     pygame.draw.rect(screen, (255, 200, 0), player.rect)
     pygame.display.flip()
+
+    

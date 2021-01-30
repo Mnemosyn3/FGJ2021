@@ -71,7 +71,7 @@ moving_down = False
 
 player_rect = pygame.Rect(100,100,player_image.get_width(),player_image.get_height())
 
-end_rect = ""
+
 
 while True:
     display.fill((255,255,255))
@@ -98,6 +98,8 @@ while True:
                 pygame.draw.rect(display, (0,0,0), pygame.Rect(x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1], TILE_SIZE,TILE_SIZE))
             if tile == "e":
                 end_rect = pygame.Rect(x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1], TILE_SIZE,TILE_SIZE)
+            if tile == "t":
+                test_rect = pygame.Rect(x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1], TILE_SIZE,TILE_SIZE)
                 
             if tile == "w":
                 tile_rects.append(pygame.Rect(x * TILE_SIZE,y * TILE_SIZE,TILE_SIZE, TILE_SIZE))
@@ -108,6 +110,7 @@ while True:
 
     display.blit((map_image), (32-scroll[0],0-scroll[1]))
     pygame.draw.rect(display, (255, 0, 0), end_rect)
+    pygame.draw.rect(display, (255, 0, 0), test_rect)
     player_movement = [0,0]
 
     if moving_left:
@@ -125,6 +128,10 @@ while True:
 
     if player_rect.colliderect(end_rect):
         print("Hit e")
+    if player_rect.colliderect(end_rect):
+        print("Hit t")
+
+
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
