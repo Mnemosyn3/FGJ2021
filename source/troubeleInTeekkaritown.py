@@ -13,6 +13,7 @@ display = pygame.Surface((150,100))
 scroll = [0,0]
 
 player_image = pygame.image.load("player.png")
+map_image = pygame.image.load("map.png")
 player_image.set_colorkey((255,255,255))
 
 TILE_SIZE = 32
@@ -73,7 +74,8 @@ player_rect = pygame.Rect(100,100,player_image.get_width(),player_image.get_heig
 test_rect = pygame.Rect(100,100,100,50)
 
 while True:
-
+    display.blit((map_image), (32-scroll[0],0-scroll[1]))
+    
     scroll[0] += (player_rect.x-scroll[0]-77)/20
     scroll[1] += (player_rect.y-scroll[1]-57)/20
 
@@ -95,6 +97,8 @@ while True:
 
     
 
+    display.blit((map_image), (32-scroll[0],0-scroll[1]))
+    
     player_movement = [0,0]
 
     if moving_left:
