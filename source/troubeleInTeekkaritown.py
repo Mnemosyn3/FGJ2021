@@ -15,7 +15,7 @@ scroll = [0,0]
 player_image = pygame.image.load("player.png")
 player_image.set_colorkey((255,255,255))
 
-TILE_SIZE = grass_image.get_width()
+TILE_SIZE = 32
 
 
 def load_map(path):
@@ -68,7 +68,7 @@ moving_down = False
 
 
 
-player_rect = pygame.Rect(50,50,player_image.get_width(),player_image.get_height())
+player_rect = pygame.Rect(100,100,player_image.get_width(),player_image.get_height())
 
 test_rect = pygame.Rect(100,100,100,50)
 
@@ -85,11 +85,10 @@ while True:
         for tile in row:
             
             x += 1
-            if tile == "1":
-                display.blit(dirt_image, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
-            if tile == "2":
-                display.blit(grass_image, (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
-            if tile != "0":
+            if tile == "w":
+                #display.blit((0,0,0), (x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1]))
+                pygame.draw.rect(display, (0,0,0), pygame.Rect(x * TILE_SIZE - scroll[0], y * TILE_SIZE - scroll[1], TILE_SIZE,TILE_SIZE))
+            if tile != " ":
                 tile_rects.append(pygame.Rect(x * TILE_SIZE,y * TILE_SIZE,TILE_SIZE, TILE_SIZE))
         
         y +=1
