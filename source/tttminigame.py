@@ -217,13 +217,13 @@ while carryOn:
         #jos osuu reunaan
         for reuna in reuna_collision_list:
             print("Ny ossui saatana!")
-            #webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
+            webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
             #End Of Game
             carryOn=False
         # jos osuu kyykkään
         for kyykka in kyykka_collision_list:
             print("Ny ossui saatana!")
-            #webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
+            webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
             #End Of Game
             carryOn=False
         all_sprites_list.update()
