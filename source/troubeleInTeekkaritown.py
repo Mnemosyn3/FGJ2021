@@ -8,7 +8,7 @@ pygame.display.set_caption("Trouble in Teekkari Town")
 WINDOW_SIZE = (1200,800)
 
 screen = pygame.display.set_mode(WINDOW_SIZE,0,32)
-display = pygame.Surface((150,100)) 
+display = pygame.Surface((300,200)) 
 
 true_scroll = [0,0]
 
@@ -114,13 +114,13 @@ while True:
     player_movement = [0,0]
 
     if moving_left:
-        player_movement[0]-=1
+        player_movement[0]-=5
     if moving_right:
-        player_movement[0]+=1
+        player_movement[0]+=5
     if moving_up:
-        player_movement[1]-=1
+        player_movement[1]-=5
     if moving_down:
-        player_movement[1]+=1
+        player_movement[1]+=5
 
     player_rect,collisions = move(player_rect,player_movement,tile_rects)
     display.blit(player_image,(player_rect.x - scroll[0],player_rect.y - scroll[1]))
