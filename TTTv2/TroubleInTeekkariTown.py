@@ -55,7 +55,7 @@ pygame.mixer.music.play(-1)
 
 grass_sound_timer = 0
 
-player = e.entity(200,200,5,13,'player')
+player = e.entity(450,1100,5,13,'player')
 
 button_objects = []
 y = 0
