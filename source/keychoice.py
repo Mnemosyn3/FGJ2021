@@ -3,7 +3,7 @@ import sys
  
 pygame.init()
 
-
+sauna_image = pygame.image.load("sauna.jpg")
 class Control:
     def __init__(self):
         self.done = False
@@ -52,46 +52,32 @@ class MenuManager:
         for i,opt in enumerate(self.rendered["des"]):
             opt[1].center = (self.screen_rect.centerx, self.from_bottom+i*self.spacer)
             if i == self.selected_index:
+                dest = (0, 0)
+                screen.blit(sauna_image, dest)
                 rend_img,rend_rect = self.rendered["sel"][i]
                 rend_rect.center = opt[1].center
                 screen.blit(rend_img,rend_rect)
             else:
+                
                 screen.blit(opt[0],opt[1])
          
     def update_menu(self):
-        self.mouse_hover_sound()
         self.change_selected_option()
          
     def get_event_menu(self, event):
         if event.type == pygame.KEYDOWN:
             '''select new index'''
-            if event.key in [pygame.K_UP, pygame.K_w]:
+            if event.key in [pygame.K_UP]:
                 self.change_selected_option(-1)
-            elif event.key in [pygame.K_DOWN, pygame.K_s]:
+            elif event.key in [pygame.K_DOWN]:
                 self.change_selected_option(1)
-                 
             elif event.key == pygame.K_RETURN:
                 self.select_option(self.selected_index)
-        self.mouse_menu_click(event)
-         
-    def mouse_hover_sound(self):
-        '''play sound when selected option changes'''
-        for i,opt in enumerate(self.rendered["des"]):
-            if opt[1].collidepoint(pygame.mouse.get_pos()):
-                if self.last_option != opt:
-                    self.last_option = opt
-    def mouse_menu_click(self, event):
-        '''select menu option '''
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            for i,opt in enumerate(self.rendered["des"]):
-                if opt[1].collidepoint(pygame.mouse.get_pos()):
-                    self.selected_index = i
-                    self.select_option(i)
-                    break
+
     def pre_render_options(self):
         '''setup render menu options based on selected or deselected'''
         font_deselect = pygame.font.SysFont("arial", 50)
-        font_selected = pygame.font.SysFont("arial", 70)
+        font_selected = pygame.font.SysFont("arial", 60)
  
         rendered_msg = {"des":[],"sel":[]}
         for option in self.options:
@@ -114,9 +100,6 @@ class MenuManager:
  
     def change_selected_option(self, op=0):
         '''change highlighted menu option'''
-        for i,opt in enumerate(self.rendered["des"]):
-            if opt[1].collidepoint(pygame.mouse.get_pos()):
-                self.selected_index = i
         if op:
             self.selected_index += op
             max_ind = len(self.rendered['des'])-1
@@ -188,13 +171,69 @@ class Options(States, MenuManager):
         self.draw_menu(screen)
         self.next = 'menu'
 
-class End(States, MenuManager):
+class End1(States, MenuManager):
     def __init__(self):
         States.__init__(self)
         MenuManager.__init__(self)
         self.next = 'options'
-        self.options = ['You have chosen this key', 'Confirm']
-        self.next_list = ['options', 'menu']
+        self.options = ['Carrying: Laserpuisto key', 'Confirm']
+        self.next_list = ['options']
+        self.from_bottom = 200
+        self.spacer = 75
+        self.selected_color = (0,200,0)
+        self.deselected_color = (255,255,255)
+        self.pre_render_options()
+    def cleanup(self):
+        print('cleaning up End state stuff')
+    def startup(self):
+        print('starting End state stuff')
+    def get_event(self, event):
+        if event.type == pygame.QUIT:
+            self.quit = True
+        self.get_event_menu(event)
+    def update(self, screen, dt):
+        self.update_menu()
+        self.draw(screen)
+    def draw(self, screen):
+        screen.fill((0,0,0))
+        self.draw_menu(screen)
+        self.next = 'menu'
+
+class End2(States, MenuManager):
+    def __init__(self):
+        States.__init__(self)
+        MenuManager.__init__(self)
+        self.next = 'options'
+        self.options = ['Carrying: Punkkerikatu key', 'Confirm']
+        self.next_list = ['options']
+        self.from_bottom = 200
+        self.spacer = 75
+        self.selected_color = (0,200,0)
+        self.deselected_color = (255,255,255)
+        self.pre_render_options()
+    def cleanup(self):
+        print('cleaning up End state stuff')
+    def startup(self):
+        print('starting End state stuff')
+    def get_event(self, event):
+        if event.type == pygame.QUIT:
+            self.quit = True
+        self.get_event_menu(event)
+    def update(self, screen, dt):
+        self.update_menu()
+        self.draw(screen)
+    def draw(self, screen):
+        screen.fill((0,0,0))
+        self.draw_menu(screen)
+        self.next = 'menu'
+
+class End3(States, MenuManager):
+    def __init__(self):
+        States.__init__(self)
+        MenuManager.__init__(self)
+        self.next = 'options'
+        self.options = ['Carrying: Timppa key', 'Confirm']
+        self.next_list = ['options']
         self.from_bottom = 200
         self.spacer = 75
         self.selected_color = (0,200,0)
@@ -220,9 +259,9 @@ app = Control()
 state_dict = {
     'menu': Menu(),
     'options': Options(),
-    'end1': End(),
-    'end2': End(),
-    'end3': End()
+    'end1': End1(),
+    'end2': End2(),
+    'end3': End3()
 }
 app.setup_states(state_dict, 'menu')
 app.main_game_loop()
