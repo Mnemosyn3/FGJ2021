@@ -69,7 +69,7 @@ moving_down = False
 
 
 
-player_rect = pygame.Rect(200,200,player_image.get_width(),player_image.get_height())
+player_rect = pygame.Rect(450,1100,player_image.get_width(),player_image.get_height())
 
 
 
