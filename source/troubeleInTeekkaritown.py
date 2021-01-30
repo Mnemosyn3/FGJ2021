@@ -108,7 +108,7 @@ while True:
 
     
 
-    display.blit((map_image), (32-scroll[0],0-scroll[1]))
+    
     pygame.draw.rect(display, (255, 0, 0), end_rect)
     pygame.draw.rect(display, (255, 0, 0), test_rect)
     player_movement = [0,0]
