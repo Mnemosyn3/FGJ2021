@@ -81,9 +81,9 @@ while carryOn:
         if keys[pygame.K_RIGHT]:
             playerCar.moveRigth(5)
         if keys[pygame.K_UP]:
-            speed += 0.05
+            playerCar.moveUp(5)
         if keys[pygame.K_DOWN]:
-            speed -= 0.05
+            playerCar.moveDown(5)
 
         ##GAME LOGIC
         for car in all_coming_cars:
