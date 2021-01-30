@@ -7,7 +7,7 @@ pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init() # initiates pygame
 pygame.mixer.set_num_channels(64)
 
-pygame.display.set_caption('Pygame Platformer')
+pygame.display.set_caption('Trouble in Teekkari Town')
 
 WINDOW_SIZE = (600,400)
 
@@ -38,37 +38,32 @@ def load_map(path):
 class button_obj():
     def __init__(self, loc):
         self.loc = loc
-    def render(self,surf,scroll):
-        surf.blit(grass_image, (self.loc[0] - scroll[0],self.loc[1] - scroll[1]))
+
+    def render(self, surf, scroll):
+        surf.blit(jumper_img, (self.loc[0] - scroll[0], self.loc[1] - scroll[1]))
+
     def get_rect(self):
-            return pygame.Rect(self.loc[0], self.loc[1],32,32)
-    def collision_test(self,rect):
-            button_rect = self.get_rect()
-            return button_rect.colliderect(rect)
-grass_image = pygame.image.load("data/images/grass.png")
+        return pygame.Rect(self.loc[0], self.loc[1], 8, 9)
+
+    def collision_test(self, rect):
+        button_rect = self.get_rect()
+        return button_rect.colliderect(rect)
+jumper_img = pygame.image.load("data/images/jumper.png")
 game_map = load_map('data/map/MAPV1')
 map_image = pygame.image.load("data/map/MAPv1.png")
 e.load_animations('data/images/entities/')
 
 pygame.mixer.music.load('data/audio/music.wav')
-pygame.mixer.music.play(-1)
+#pygame.mixer.music.play(-1)
 
-grass_sound_timer = 0
 
-player = e.entity(450,1100,5,13,'player')
 
-button_objects = []
-y = 0
-for row in game_map:
-    x = 0
-    for tile in row:
-        x += 1        
-        if tile == "E":
-           button_objects.append(button_obj((x,y)))
-        if tile == "G":
-            button_objects.append(button_obj((x,y)))
-            
-        y +=1
+player = e.entity(250,200,5,13,'player')
+
+
+
+
+jatkot = button_obj((200,200))
 
 
 while True: # game loop
@@ -102,8 +97,7 @@ while True: # game loop
         y +=1
 
     display.blit((map_image), (32-scroll[0],0-scroll[1]))
-    #pygame.draw.rect(display, (255, 0, 0), end_rect)
-    #pygame.draw.rect(display, (255, 0, 0), test_rect)
+    
 
     
 
@@ -142,10 +136,9 @@ while True: # game loop
     player.change_frame(1)
     player.display(display,scroll)
 
-    for button in button_objects:
-        button.render(display,scroll)
-        if button.collision_test(player.obj.rect):
-            print("Osoit Nappiin")
+    jatkot.render(display,scroll)
+    if jatkot.collision_test(player.obj.rect):
+        print("Testi")
 
     for event in pygame.event.get(): # event loop
         if event.type == QUIT:
