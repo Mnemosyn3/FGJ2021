@@ -2,9 +2,9 @@ import pygame, webbrowser, sys, random
 WHITE = (255, 255, 255)
 
 #TAUSTA
-map_image = pygame.image.load("data/map/map.jpg")
-player_image = pygame.image.load("data/images/entities/player/idle/idle_0.png")
-kyykka_image = pygame.image.load("data/images/Kyykkä.png")
+map_image = pygame.image.load("fgj2021\TTTv2\data\map\map.jpg")
+player_image = pygame.image.load("fgj2021\TTTv2\data\images\entities\player\idle\idle_0.png")
+kyykka_image = pygame.image.load("fgj2021\TTTv2\data\images\Kyykkä.png")
 
 class Reuna(pygame.sprite.Sprite):
     def __init__(self, color, width, height):
@@ -145,7 +145,7 @@ def dodge():
     reuna_lista.add(vasen_reuna)
     reuna_lista.add(oikea_reuna)
 
-    all_coming_kyykka = pygame.sprite.Group()
+    #all_coming_kyykka = pygame.sprite.Group()
 
     all_sprites_list.add(player)
     all_sprites_list.add(kyykka1)
