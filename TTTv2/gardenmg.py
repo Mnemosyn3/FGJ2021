@@ -1,10 +1,11 @@
-import pygame, webbrowser, sys, random
+import pygame, sys, random
 WHITE = (255, 255, 255)
 
 #TAUSTA
-map_image = pygame.image.load("data/map/map.jpg")
+map_image = pygame.image.load("fgj2021\TTTv2\data\map\map.jpg")
 player_image = pygame.image.load("data/images/entities/player/idle/idle_0.png")
-kyykka_image = pygame.image.load("data/images/Kyykkä.png")
+player_image.set_colorkey((0,255,0))
+kyykka_image = pygame.image.load("fgj2021\TTTv2\data\images\Kyykkä.png")
 
 class Reuna(pygame.sprite.Sprite):
     def __init__(self, color, width, height):
@@ -174,10 +175,10 @@ def dodge():
     #Kello määrittää, kuinka usein näyttö päivittyy
     clock = pygame.time.Clock()
     counter, text = 0, '0'.rjust(3)
-    infotext = 'Try to survive 40 sec!'
+    infotext = 'Try to dodge throws for 40 sec!'
     pygame.time.set_timer(pygame.USEREVENT, 1000)
     timerfont = pygame.font.SysFont('Consolas', 80)
-    infofont = pygame.font.SysFont('Consolas', 20)
+    infofont = pygame.font.SysFont('Consolas', 50)
 
     WIN = False
     #Pääohjelma loop
@@ -219,14 +220,12 @@ def dodge():
             for reuna in reuna_collision_list:
                 print(counter)
                 print("Ny ossui saatana!")
-                webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
                 #End Of Game
                 carryOn=False
             # jos osuu kyykkään
             for kyykka in kyykka_collision_list:
                 print(counter)
                 print("Ny ossui saatana!")
-                #webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
                 #End Of Game
                 carryOn=False
             all_sprites_list.update()
@@ -238,8 +237,8 @@ def dodge():
             #Teksti
             dest2 = (0, 100)
             screen.blit(timerfont.render(text, True, (255, 0, 0)), dest2)
-            destinfo = (20, 0)
-            screen.blit(timerfont.render(infotext, True, (255, 0, 0)), destinfo)
+            destinfo = (40, 30)
+            screen.blit(infofont.render(infotext, True, (255, 0, 0)), destinfo)
             #Reunat
             left_line = pygame.draw.line(screen, RED, [5, 0], [5, 1000], 15)
             right_line = pygame.draw.line(screen, RED, [995, 0], [995, 1000], 15)
