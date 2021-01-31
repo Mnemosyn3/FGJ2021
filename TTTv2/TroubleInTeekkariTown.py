@@ -60,7 +60,7 @@ pygame.mixer.music.load('data/audio/music.wav')
 
 
 
-player = e.entity(250,200,32,32,'player')
+player = e.entity(250,200,1,1,'player')
 
 
 teksti = button_obj((250,200))
@@ -103,7 +103,7 @@ def main():
 
 
 
-    player = e.entity(250,200,32,32,'player')
+    player = e.entity(250,200,22,26,'player')
 
     while True: # game loop
         display.fill((0,0,0)) # clear screen by filling it with black
