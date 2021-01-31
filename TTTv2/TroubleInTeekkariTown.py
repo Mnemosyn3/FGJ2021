@@ -54,14 +54,17 @@ pygame.mixer.music.load('data/audio/music.wav')
 
 player = e.entity(475,1115,26,22,'player')
 
-
+#nappeja
 teksti = button_obj((250,200))
-
+koti = button_obj((2470, 1075))
+jatkot = button_obj((2225, 107))
 sauna = button_obj((3755,45))
 etkot = button_obj((110,235))
 garden1 = button_obj((2675,1325))
 garden2 = button_obj((2675,1300))
 garden3 = button_obj((2675,1350))
+strippiklubi = button_obj((3660, 1750))
+metsa = button_obj((490, 1750))
 
 def main():
     AVAIN = 0
@@ -96,7 +99,7 @@ def main():
 
 
 
-    player = e.entity(250,200,22,26,'player')
+    player = e.entity(475,1115,22,26,'player')
 
     while True: # game loop
         display.fill((0,0,0)) # clear screen by filling it with black
@@ -135,13 +138,13 @@ def main():
 
         player_movement = [0,0]
         if moving_right == True:
-            player_movement[0] += 15
+            player_movement[0] += 5
         if moving_left == True:
-            player_movement[0] -= 15
+            player_movement[0] -= 5
         if moving_up:
-            player_movement[1]-=15
+            player_movement[1]-=5
         if moving_down:
-            player_movement[1]+=15
+            player_movement[1]+=5
         
         
 
@@ -166,6 +169,25 @@ def main():
 
         player.change_frame(1)
         player.display(display,scroll)
+
+        koti.render(display,scroll)
+        if koti.collision_test(player.obj.rect):
+            if AVAIN == 1 and KYYKKAWIN == True and PUHELIN == True:
+                player.set_pos(475,1115)
+            else:
+                player.set_pos(2440,1075)
+
+        metsa.render(display,scroll)
+        if metsa.collision_test(player.obj.rect):
+            player.set_pos(75,2100)
+
+        jatkot.render(display,scroll)
+        if jatkot.collision_test(player.obj.rect):
+            player.set_pos(475,1115)
+
+        strippiklubi.render(display,scroll)
+        if strippiklubi.collision_test(player.obj.rect):
+            player.set_pos(475,1115)
 
         teksti.render(display,scroll)
         if teksti.collision_test(player.obj.rect):
@@ -194,7 +216,7 @@ def main():
 
         sauna.render(display,scroll)
         if sauna.collision_test(player.obj.rect):
-            player.set_pos(3755, 55)
+            player.set_pos(3755, 65)
             moving_right = False
             moving_left = False
             moving_up = False

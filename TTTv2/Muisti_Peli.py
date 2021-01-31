@@ -86,11 +86,11 @@ def muistipelimg():
                 mousex, mousey = event.pos
                 clickedButton = getButtonClicked(mousex, mousey)
             elif event.type == KEYDOWN:
-                if event.key == K_P7:
+                if event.key == K_KP7:
                     clickedButton = YELLOW
-                elif event.key == K_P8:
+                elif event.key == K_KP8:
                     clickedButton = BLUE
-                elif event.key == K_P4:
+                elif event.key == K_KP4:
                     clickedButton = RED
                 elif event.key == K_KP5:
                     clickedButton = GREEN

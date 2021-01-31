@@ -6,6 +6,7 @@ pygame.init()
 
 
 class Control:
+    flipvalue  = 0
     def __init__(self):
         self.done = False
         self.fps = 60
@@ -19,16 +20,21 @@ class Control:
     def flip_state(self):
         self.state.done = False
         previous,self.state_name = self.state_name, self.state.next
-        self.state.cleanup()
+        statekey = self.state.cleanup()
         self.state = self.state_dict[self.state_name]
-        self.state.startup()
+        statekey = self.state.startup()
         self.state.previous = previous
+        return statekey
     def update(self, dt):
+        flipvalue = 0
         if self.state.quit:
             self.done = True
         elif self.state.done:
-            self.flip_state()
+            flipvalue =self.flip_state()
+            print("moi")
+            print(flipvalue)
         self.state.update(self.screen, dt)
+        return flipvalue
     def event_loop(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -39,8 +45,10 @@ class Control:
         while not self.done:
             delta_time = self.clock.tick(self.fps)/1000.0
             self.event_loop()
-            self.update(delta_time)
+            updatevalue = self.update(delta_time)
             pygame.display.update()
+            print(updatevalue)
+        return updatevalue
              
 class MenuManager:
     def __init__(self):
@@ -52,7 +60,7 @@ class MenuManager:
          
     def draw_menu(self, screen):
         #Kuvat sun muut
-        sauna_image = pygame.image.load("fgj2021\TTTv2\data\images\sauna.jpg")
+        sauna_image = pygame.image.load("data/images/sauna.jpg")
         dest = (0, 0)
         screen.blit(sauna_image, dest)
         info = 'You are in a teekkarisauna!'
@@ -140,7 +148,9 @@ class Menu(States, MenuManager):
         self.from_bottom = 200
         self.spacer = 75
     def cleanup(self):
+        start = 0
         print('cleaning up Main Menu state stuff')
+        return start
     def startup(self):
         print('starting Main Menu state stuff')
     def get_event(self, event):
@@ -168,7 +178,9 @@ class Options(States, MenuManager):
         self.deselected_color = (255,255,255)
         self.pre_render_options()
     def cleanup(self):
+        start = 0
         print('cleaning up Options state stuff')
+        return 0
     def startup(self):
         print('starting Options state stuff')
     def get_event(self, event):
@@ -198,9 +210,10 @@ class End1(States, MenuManager):
         self.pre_render_options()
     def cleanup(self):
         print('cleaning up End1 state stuff')
-        AVAIN = 1
     def startup(self):
+        newkey = 1
         print('starting End1 state stuff')
+        return newkey
     def get_event(self, event):
         if event.type == pygame.QUIT:
             self.quit = True
@@ -275,6 +288,7 @@ class End3(States, MenuManager):
 
  #Itse ohjelma
 def minigame_key():
+    AVAIN = 0
     app = Control()
     #mahd. valikkopaikat
     state_dict = {
@@ -285,6 +299,8 @@ def minigame_key():
         'end3': End3()
     }
     app.setup_states(state_dict, 'menu')
-    app.main_game_loop()
-    AVAIN = random.randint(1,3)
+    AVAIN = app.main_game_loop()
+    #AVAIN = random.randint(1,3)
     return AVAIN
+AVAIN = minigame_key()
+print(AVAIN)
