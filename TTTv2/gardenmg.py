@@ -2,9 +2,9 @@ import pygame, webbrowser, sys, random
 WHITE = (255, 255, 255)
 
 #TAUSTA
-map_image = pygame.image.load("data/map/map.jpg")
-player_image = pygame.image.load("data/images/entities/player/idle/idle_0.png")
-kyykka_image = pygame.image.load("data/images/Kyykkä.png")
+map_image = pygame.image.load("map.jpg")
+player_image = pygame.image.load("Hahmo.png")
+kyykka_image = pygame.image.load("Kyykkä.png")
 
 class Reuna(pygame.sprite.Sprite):
     def __init__(self, color, width, height):
@@ -179,7 +179,7 @@ def dodge():
     timerfont = pygame.font.SysFont('Consolas', 80)
     infofont = pygame.font.SysFont('Consolas', 20)
 
-
+    WIN = False
     #Pääohjelma loop
     while carryOn:
         #Päätapahtuma loop
@@ -189,6 +189,7 @@ def dodge():
                     text = str(counter).rjust(3)
                     if counter == 40:
                         #pelin maali
+                        WIN = True
                         carryOn = False
                 if event.type == pygame.QUIT:
                     carryOn = False
@@ -213,14 +214,14 @@ def dodge():
                     kyykka.rect.x = random.randint(5, 948)
                     kyykka.rect.y = random.randint(-1100, -100)
             kyykka_collision_list = pygame.sprite.spritecollide(player,all_coming_kyykka,False)
-            reuna_collision_list = pygame.sprite.spritecollide(player, reuna_lista, False)
+            #reuna_collision_list = pygame.sprite.spritecollide(player, reuna_lista, False)
             #jos osuu reunaan
-            for reuna in reuna_collision_list:
-                print(counter)
-                print("Ny ossui saatana!")
+            #for reuna in reuna_collision_list:
+                #print(counter)
+                #print("Ny ossui saatana!")
                 #webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
                 #End Of Game
-                carryOn=False
+                #carryOn=False
             # jos osuu kyykkään
             for kyykka in kyykka_collision_list:
                 print(counter)
@@ -271,4 +272,4 @@ def dodge():
             clock.tick(60)
 
     #
-    return 0
+    return WIN
