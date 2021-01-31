@@ -60,10 +60,10 @@ pygame.mixer.music.load('data/audio/music.wav')
 
 
 
-player = e.entity(250,200,5,13,'player')
+player = e.entity(250,200,32,32,'player')
 
 
-
+teksti = button_obj((250,200))
 
 sauna = button_obj((3755,45))
 
@@ -172,6 +172,16 @@ def main():
 
         player.change_frame(1)
         player.display(display,scroll)
+
+        teksti.render(display,scroll)
+        if teksti.collision_test(player.obj.rect):
+            print("Osuin tekstinappiin.")
+            font = pygame.font.Font("freesansbold.ttf", 30)
+            label = font.render("Score target not met", 1, (0,255,0))
+            labelRect = label.get_rect()
+            labelRect.center = (400, 250)
+
+            screen.blit(label,(5,5))
 
         sauna.render(display,scroll)
         if sauna.collision_test(player.obj.rect):
