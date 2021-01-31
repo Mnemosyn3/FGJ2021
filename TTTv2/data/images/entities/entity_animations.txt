@@ -1,2 +1,2 @@
-player/idle/ 7;7 loop
+player/idle/ 10;6 loop
 player/run/ 10;10 loop
