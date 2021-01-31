@@ -17,6 +17,11 @@ screen = pygame.display.set_mode(WINDOW_SIZE,0,32) # initiate the window
 
 display = pygame.Surface((300,200)) # used as the surface for rendering, which is scaled
 
+
+sysfont = pygame.font.get_default_font()
+font = pygame.font.SysFont(None, 48)
+
+
 moving_right = False
 moving_left = False
 moving_up = False
@@ -178,12 +183,11 @@ def main():
         teksti.render(display,scroll)
         if teksti.collision_test(player.obj.rect):
             print("Osuin tekstinappiin.")
-            font = pygame.font.Font("freesansbold.ttf", 30)
-            label = font.render("Score target not met", 1, (0,255,0))
-            labelRect = label.get_rect()
-            labelRect.center = (400, 250)
+            img = font.render(sysfont, True, (255,0,0))
+            rect = img.get_rect()
+            pygame.draw.rect(img, (0,0,255), rect, 1)
 
-            screen.blit(label,(5,5))
+            display.blit(img,(20,20))
 
         sauna.render(display,scroll)
         if sauna.collision_test(player.obj.rect):
