@@ -3,12 +3,12 @@ import sys
  
 pygame.init()
 
-sauna_image = pygame.image.load("sauna.jpg")
+
 class Control:
     def __init__(self):
         self.done = False
         self.fps = 60
-        self.screen = pygame.display.set_mode((600,600))
+        self.screen = pygame.display.set_mode((1000,900))
         self.screen_rect = self.screen.get_rect()
         self.clock = pygame.time.Clock()
     def setup_states(self, state_dict, start_state):
@@ -49,16 +49,21 @@ class MenuManager:
          
     def draw_menu(self, screen):
         '''handle drawing of the menu options'''
+        sauna_image = pygame.image.load("sauna.jpg")
+        dest = (0, 0)
+        screen.blit(sauna_image, dest)
+        info = 'You are in a teekkarisauna!'
+        font = pygame.font.SysFont('arial', 50)
+        desttext = (50, 100)
+        screen.blit(font.render(info, True, (245,245,245)), desttext)
         for i,opt in enumerate(self.rendered["des"]):
             opt[1].center = (self.screen_rect.centerx, self.from_bottom+i*self.spacer)
             if i == self.selected_index:
-                dest = (0, 0)
-                screen.blit(sauna_image, dest)
+                
                 rend_img,rend_rect = self.rendered["sel"][i]
                 rend_rect.center = opt[1].center
                 screen.blit(rend_img,rend_rect)
             else:
-                
                 screen.blit(opt[0],opt[1])
          
     def update_menu(self):
@@ -255,15 +260,15 @@ class End3(States, MenuManager):
         self.draw_menu(screen)
         self.next = 'menu'
 
-app = Control()
-state_dict = {
-    'menu': Menu(),
-    'options': Options(),
-    'end1': End1(),
-    'end2': End2(),
-    'end3': End3()
-}
-app.setup_states(state_dict, 'menu')
-app.main_game_loop()
-pygame.quit()
-sys.exit()
+def minigame_key():
+    app = Control()
+    state_dict = {
+        'menu': Menu(),
+        'options': Options(),
+        'end1': End1(),
+        'end2': End2(),
+        'end3': End3()
+    }
+    app.setup_states(state_dict, 'menu')
+    app.main_game_loop()
+    return 0
