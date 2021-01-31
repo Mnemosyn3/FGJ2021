@@ -16,6 +16,7 @@ display = pygame.Surface((300,200)) # used as the surface for rendering, which i
 
 sysfont = pygame.font.get_default_font()
 font = pygame.font.SysFont(None, 48)
+kyykkafont = pygame.font.SysFont(None, 30)
 
 
 def load_map(path):
@@ -57,19 +58,24 @@ player = e.entity(475,1115,26,22,'player')
 
 teksti = button_obj((250,200))
 
+
 sauna = button_obj((3755,45))
 etkot = button_obj((110,235))
 garden1 = button_obj((2675,1325))
 garden2 = button_obj((2675,1300))
 garden3 = button_obj((2675,1350))
+kyykkateksti = button_obj((2850, 1300))
+saunateksti = button_obj((3745, 115))
 
 def main():
+    FirstTime = True
+    Beentokyykka = False
+    FirstTimesauna = True
+    Beentosauna = False
     AVAIN = 0
     KYYKKAWIN = False
     PUHELIN = False
-    pygame.mixer.pre_init(44100, -16, 2, 512)
-    pygame.init() # initiates pygame
-    pygame.mixer.set_num_channels(64)
+    
 
     pygame.display.set_caption('Trouble in Teekkari Town')
 
@@ -173,13 +179,12 @@ def main():
             print("Osuin tekstinappiin.")
             teksti.time = 300
         if teksti.time > 0:    
-            img = font.render(sysfont, True, (255,0,0))
+            img = font.render("paska", True, (255,0,0))
             rect = img.get_rect()
             pygame.draw.rect(img, (0,0,255), rect, 1)
 
             display.blit(img,(20,20))
             teksti.time -= 1
-
         etkot.render(display,scroll)
         if etkot.collision_test(player.obj.rect):
             player.set_pos(130, 235)
@@ -193,8 +198,9 @@ def main():
                 print("SAit puhelimen")
 
         sauna.render(display,scroll)
+        saunateksti.render(display,scroll)
         if sauna.collision_test(player.obj.rect):
-            player.set_pos(3755, 55)
+            player.set_pos(3745, 115)
             moving_right = False
             moving_left = False
             moving_up = False
@@ -202,13 +208,34 @@ def main():
             print("Mennään saunaan")
             AVAIN = keychoice.minigame_key()
             print(AVAIN)
+            Beentosauna = True
+        if Beentosauna == False and FirstTimesauna == True:
+            saunawintext = "I remember this sauna!" 
+        if FirstTimesauna == False and Beentosauna == False:
+            saunawintext = ""
+        if AVAIN != 0:
+            kyykkafont = pygame.font.SysFont(None, 20)
+            saunawintext = "I hope this is the right key..."
+        if AVAIN == 0 and Beentosauna == True:
+            kyykkafont = pygame.font.SysFont(None, 20)
+            saunawintext = "I don't need a key!"
+        if saunateksti.collision_test(player.obj.rect):
+            saunateksti.time = 0
+            saunateksti.time = 300
+        if saunateksti.time > 0:
+            imgsauna = kyykkafont.render(saunawintext, True, (255,255,255))
+            rectsauna = imgsauna.get_rect()
+            pygame.draw.rect(imgsauna, (0,0,255), rectsauna, 1)
+            display.blit(imgsauna,(20,20))
+            saunateksti.time -= 1
+            if saunateksti.time == 0:
+                FirstTimesauna = False
         
         garden1.render(display,scroll)
         garden2.render(display,scroll)
         garden3.render(display,scroll)
-        gardem_win_text = 'You got your wallet back!'
-        gwin_font = pygame.font.SysFont('arial', 50)
-        gwin_textdest = (2850, 1300)
+        kyykkateksti.render(display,scroll)
+        kyykkafont = pygame.font.SysFont(None, 20)
         if garden1.collision_test(player.obj.rect) or garden2.collision_test(player.obj.rect) or garden3.collision_test(player.obj.rect):
             player.set_pos(2850, 1300)
             moving_right = False
@@ -217,11 +244,29 @@ def main():
             moving_down = False
             print("Mennään gardeniin")
             KYYKKAWIN = gardenmg.dodge()
-            if KYYKKAWIN == True:
-                print("voitit!")
-                screen.blit(gwin_font.render(gardem_win_text, True, (245,245,245)), gwin_textdest)
-            else:
-                print("hävisit!")
+            Beentokyykka = True
+        if Beentokyykka == False and FirstTime == True:
+            kyykkawintext = "Those guys look familiar and angry..." 
+        if FirstTime == False and Beentokyykka == False:
+            kyykkawintext = ""
+        if KYYKKAWIN ==True:
+            kyykkafont = pygame.font.SysFont(None, 20)
+            kyykkawintext = "You escaped with your wallet!"
+        if KYYKKAWIN ==False and Beentokyykka == True:
+            kyykkafont = pygame.font.SysFont(None, 20)
+            kyykkawintext = "You escaped, bruised..."
+        if kyykkateksti.collision_test(player.obj.rect):
+            kyykkateksti.time = 0
+            kyykkateksti.time = 300
+        if kyykkateksti.time > 0:
+            imgkyykka = kyykkafont.render(kyykkawintext, True, (255,255,255))
+            rectkyykka = imgkyykka.get_rect()
+            pygame.draw.rect(imgkyykka, (0,0,255), rectkyykka, 1)
+            display.blit(imgkyykka,(20,20))
+            kyykkateksti.time -= 1
+            if kyykkateksti.time == 0:
+                FirstTime = False
+        
         for event in pygame.event.get(): # event loop
             if event.type == QUIT:
                 pygame.quit()
