@@ -1,7 +1,7 @@
 import pygame, sys, os, random
 import data.engine as e
 import keychoice
-#import gardenmg
+import gardenmg
 clock = pygame.time.Clock()
 
 from pygame.locals import *
@@ -73,6 +73,7 @@ garden3 = button_obj((2675,1350))
 
 def main():
     AVAIN = 0
+    KYYKKAWIN = False
     pygame.mixer.pre_init(44100, -16, 2, 512)
     pygame.init() # initiates pygame
     pygame.mixer.set_num_channels(64)
@@ -188,6 +189,9 @@ def main():
         garden1.render(display,scroll)
         garden2.render(display,scroll)
         garden3.render(display,scroll)
+        gardem_win_text = 'You got your wallet back!'
+        gwin_font = pygame.font.SysFont('arial', 50)
+        gwin_textdest = (2850, 1300)
         if garden1.collision_test(player.obj.rect) or garden2.collision_test(player.obj.rect) or garden3.collision_test(player.obj.rect):
             player.set_pos(2850, 1300)
             moving_right = False
@@ -195,7 +199,12 @@ def main():
             moving_up = False
             moving_down = False
             print("Mennään gardeniin")
-            #gardenmg.dodge()
+            KYYKKAWIN = gardenmg.dodge()
+            if KYYKKAWIN == True:
+                print("voitit!")
+                screen.blit(gwin_font.render(gardem_win_text, True, (245,245,245)), gwin_textdest)
+            else:
+                print("hävisit!")
         
         for event in pygame.event.get(): # event loop
             if event.type == QUIT:
