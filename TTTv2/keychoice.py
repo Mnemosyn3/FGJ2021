@@ -52,7 +52,7 @@ class MenuManager:
          
     def draw_menu(self, screen):
         #Kuvat sun muut
-        sauna_image = pygame.image.load("sauna.jpg")
+        sauna_image = pygame.image.load("data/images/sauna.jpg")
         dest = (0, 0)
         screen.blit(sauna_image, dest)
         info = 'You are in a teekkarisauna!'
