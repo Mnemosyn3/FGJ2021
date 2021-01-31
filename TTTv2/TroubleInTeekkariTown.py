@@ -92,10 +92,6 @@ def main():
 
     true_scroll = [0,0]
     TILE_SIZE = 32
-    jumper_img = pygame.image.load("data/images/jumper.png")
-    game_map = load_map('data/map/MAPV1')
-    map_image = pygame.image.load("data/map/MAPv1.png")
-    e.load_animations('data/images/entities/')
 
     pygame.mixer.music.load('data/audio/music.wav')
     #pygame.mixer.music.play(-1)
