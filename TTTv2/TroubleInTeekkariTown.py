@@ -32,7 +32,7 @@ def load_map(path):
 class button_obj():
     def __init__(self, loc):
         self.loc = loc
-
+        self.time = 0
     def render(self, surf, scroll):
         surf.blit(jumper_img, (self.loc[0] - scroll[0], self.loc[1] - scroll[1]))
 
@@ -169,12 +169,16 @@ def main():
 
         teksti.render(display,scroll)
         if teksti.collision_test(player.obj.rect):
+            
             print("Osuin tekstinappiin.")
+            teksti.time = 300
+        if teksti.time > 0:    
             img = font.render(sysfont, True, (255,0,0))
             rect = img.get_rect()
             pygame.draw.rect(img, (0,0,255), rect, 1)
 
             display.blit(img,(20,20))
+            teksti.time -= 1
 
         etkot.render(display,scroll)
         if etkot.collision_test(player.obj.rect):
