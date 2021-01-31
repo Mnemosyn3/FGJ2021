@@ -6,11 +6,6 @@ import Muisti_Peli
 clock = pygame.time.Clock()
 
 from pygame.locals import *
-pygame.mixer.pre_init(44100, -16, 2, 512)
-pygame.init() # initiates pygame
-pygame.mixer.set_num_channels(64)
-
-pygame.display.set_caption('Trouble in Teekkari Town')
 
 WINDOW_SIZE = (600,400)
 
@@ -23,15 +18,6 @@ sysfont = pygame.font.get_default_font()
 font = pygame.font.SysFont(None, 48)
 
 
-moving_right = False
-moving_left = False
-moving_up = False
-moving_down = False
-
-true_scroll = [0,0]
-
-
-TILE_SIZE = 32
 def load_map(path):
     f = open(path + '.txt','r')
     data = f.read()
@@ -66,7 +52,7 @@ pygame.mixer.music.load('data/audio/music.wav')
 
 
 
-player = e.entity(250,200,1,1,'player')
+player = e.entity(475,1115,26,22,'player')
 
 
 teksti = button_obj((250,200))
