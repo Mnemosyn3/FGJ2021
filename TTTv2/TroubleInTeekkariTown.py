@@ -1,7 +1,7 @@
 import pygame, sys, os, random
 import data.engine as e
 import keychoice
-import gardenmg
+#import gardenmg
 clock = pygame.time.Clock()
 
 from pygame.locals import *
@@ -72,6 +72,7 @@ garden2 = button_obj((2675,1300))
 garden3 = button_obj((2675,1350))
 
 def main():
+    AVAIN = 0
     pygame.mixer.pre_init(44100, -16, 2, 512)
     pygame.init() # initiates pygame
     pygame.mixer.set_num_channels(64)
@@ -108,8 +109,8 @@ def main():
 
         
 
-        true_scroll[0] += (player.x-true_scroll[0]-152)/20
-        true_scroll[1] += (player.y-true_scroll[1]-106)/20
+        true_scroll[0] += (player.x-true_scroll[0]-152)#/20
+        true_scroll[1] += (player.y-true_scroll[1]-106)#/20
         scroll = true_scroll.copy()
         scroll[0] = int(scroll[0])
         scroll[1] = int(scroll[1])
@@ -141,13 +142,13 @@ def main():
 
         player_movement = [0,0]
         if moving_right == True:
-            player_movement[0] += 5
+            player_movement[0] += 15
         if moving_left == True:
-            player_movement[0] -= 5
+            player_movement[0] -= 15
         if moving_up:
-            player_movement[1]-=5
+            player_movement[1]-=15
         if moving_down:
-            player_movement[1]+=5
+            player_movement[1]+=15
         
         
 
@@ -191,7 +192,8 @@ def main():
             moving_up = False
             moving_down = False
             print("Mennään saunaan")
-            keychoice.minigame_key()
+            AVAIN = keychoice.minigame_key()
+            print(AVAIN)
         
         garden1.render(display,scroll)
         garden2.render(display,scroll)
@@ -203,7 +205,7 @@ def main():
             moving_up = False
             moving_down = False
             print("Mennään gardeniin")
-            gardenmg.dodge()
+            #gardenmg.dodge()
         
         for event in pygame.event.get(): # event loop
             if event.type == QUIT:
