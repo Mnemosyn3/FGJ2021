@@ -103,7 +103,7 @@ def main():
 
 
 
-    player = e.entity(250,200,5,13,'player')
+    player = e.entity(250,200,32,32,'player')
 
     while True: # game loop
         display.fill((0,0,0)) # clear screen by filling it with black
