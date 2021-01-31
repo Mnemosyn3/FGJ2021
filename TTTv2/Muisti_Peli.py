@@ -128,7 +128,7 @@ def muistipelimg():
                     # pushed the last button in the pattern
                     changeBackgroundAnimation()
                     score += 1
-                    if score == 1:
+                    if score == 10:
                         WINS = True
                         return WINS
                     waitingForInput = False

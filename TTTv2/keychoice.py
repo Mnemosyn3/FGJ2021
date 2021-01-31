@@ -20,21 +20,16 @@ class Control:
     def flip_state(self):
         self.state.done = False
         previous,self.state_name = self.state_name, self.state.next
-        statekey = self.state.cleanup()
+        self.state.cleanup()
         self.state = self.state_dict[self.state_name]
-        statekey = self.state.startup()
+        self.state.startup()
         self.state.previous = previous
-        return statekey
     def update(self, dt):
-        flipvalue = 0
         if self.state.quit:
             self.done = True
         elif self.state.done:
-            flipvalue =self.flip_state()
-            print("moi")
-            print(flipvalue)
+            self.flip_state()
         self.state.update(self.screen, dt)
-        return flipvalue
     def event_loop(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -45,10 +40,8 @@ class Control:
         while not self.done:
             delta_time = self.clock.tick(self.fps)/1000.0
             self.event_loop()
-            updatevalue = self.update(delta_time)
+            self.update(delta_time)
             pygame.display.update()
-            print(updatevalue)
-        return updatevalue
              
 class MenuManager:
     def __init__(self):
@@ -211,9 +204,7 @@ class End1(States, MenuManager):
     def cleanup(self):
         print('cleaning up End1 state stuff')
     def startup(self):
-        newkey = 1
         print('starting End1 state stuff')
-        return newkey
     def get_event(self, event):
         if event.type == pygame.QUIT:
             self.quit = True
@@ -241,7 +232,6 @@ class End2(States, MenuManager):
         self.pre_render_options()
     def cleanup(self):
         print('cleaning up End2 state stuff')
-        AVAIN = 2
     def startup(self):
         print('starting End2 state stuff')
     def get_event(self, event):
@@ -271,7 +261,6 @@ class End3(States, MenuManager):
         self.pre_render_options()
     def cleanup(self):
         print('cleaning up End3 state stuff')
-        AVAIN = 3
     def startup(self):
         print('starting End3 state stuff')
     def get_event(self, event):
@@ -288,7 +277,6 @@ class End3(States, MenuManager):
 
  #Itse ohjelma
 def minigame_key():
-    AVAIN = 0
     app = Control()
     #mahd. valikkopaikat
     state_dict = {
@@ -299,8 +287,8 @@ def minigame_key():
         'end3': End3()
     }
     app.setup_states(state_dict, 'menu')
-    AVAIN = app.main_game_loop()
-    #AVAIN = random.randint(1,3)
+    app.main_game_loop()
+    AVAIN = random.randint(1,3)
     return AVAIN
-AVAIN = minigame_key()
-print(AVAIN)
+#AVAIN = minigame_key()
+#print(AVAIN)
