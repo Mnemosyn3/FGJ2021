@@ -3,7 +3,7 @@ WHITE = (255, 255, 255)
 
 #TAUSTA
 map_image = pygame.image.load("data/map/map.jpg")
-player_image = pygame.image.load("data/images/entities/player/idle/Hahmo.png")
+player_image = pygame.image.load("data/images/entities/player/idle/idle_0.png")
 kyykka_image = pygame.image.load("data/images/Kyykkä.png")
 
 class Reuna(pygame.sprite.Sprite):
