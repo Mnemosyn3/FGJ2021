@@ -2,9 +2,9 @@ import pygame, webbrowser, sys, random
 WHITE = (255, 255, 255)
 
 #TAUSTA
-map_image = pygame.image.load("map.jpg")
-player_image = pygame.image.load("Hahmo.png")
-kyykka_image = pygame.image.load("Kyykkä.png")
+map_image = pygame.image.load("data/map/map.jpg")
+player_image = pygame.image.load("data/images/entities/player/idle/Hahmo.png")
+kyykka_image = pygame.image.load("data/images/Kyykkä.png")
 
 class Reuna(pygame.sprite.Sprite):
     def __init__(self, color, width, height):
