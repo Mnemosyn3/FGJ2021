@@ -2,7 +2,7 @@ import pygame, math, os
 from pygame.locals import *
 
 global e_colorkey
-e_colorkey = (255,255,255)
+e_colorkey = (0,255,0)
 
 def set_global_colorkey(colorkey):
     global e_colorkey
