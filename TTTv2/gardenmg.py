@@ -214,14 +214,14 @@ def dodge():
                     kyykka.rect.x = random.randint(5, 948)
                     kyykka.rect.y = random.randint(-1100, -100)
             kyykka_collision_list = pygame.sprite.spritecollide(player,all_coming_kyykka,False)
-            #reuna_collision_list = pygame.sprite.spritecollide(player, reuna_lista, False)
+            reuna_collision_list = pygame.sprite.spritecollide(player, reuna_lista, False)
             #jos osuu reunaan
-            #for reuna in reuna_collision_list:
-                #print(counter)
-                #print("Ny ossui saatana!")
-                #webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
+            for reuna in reuna_collision_list:
+                print(counter)
+                print("Ny ossui saatana!")
+                webbrowser.open('https://www.youtube.com/watch?v=NUYvbT6vTPs')
                 #End Of Game
-                #carryOn=False
+                carryOn=False
             # jos osuu kyykkään
             for kyykka in kyykka_collision_list:
                 print(counter)
