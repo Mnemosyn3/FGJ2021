@@ -51,9 +51,8 @@ class MenuManager:
         self.deselected_color = (255,255,255)
          
     def draw_menu(self, screen):
-        #Värjää valitun tekstin
-        #JA asettaa taustan
-        sauna_image = pygame.image.load("sauna.jpg")
+        #Kuvat sun muut
+        sauna_image = pygame.image.load("data/images/sauna.jpg")
         dest = (0, 0)
         screen.blit(sauna_image, dest)
         info = 'You are in a teekkarisauna!'
