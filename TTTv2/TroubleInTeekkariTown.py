@@ -2,6 +2,7 @@ import pygame, sys, os, random
 import data.engine as e
 import keychoice
 import gardenmg
+import Muisti_Peli
 clock = pygame.time.Clock()
 
 from pygame.locals import *
@@ -66,7 +67,7 @@ player = e.entity(250,200,32,32,'player')
 teksti = button_obj((250,200))
 
 sauna = button_obj((3755,45))
-
+etkot = button_obj((110,235))
 garden1 = button_obj((2675,1325))
 garden2 = button_obj((2675,1300))
 garden3 = button_obj((2675,1350))
@@ -74,6 +75,7 @@ garden3 = button_obj((2675,1350))
 def main():
     AVAIN = 0
     KYYKKAWIN = False
+    PUHELIN = False
     pygame.mixer.pre_init(44100, -16, 2, 512)
     pygame.init() # initiates pygame
     pygame.mixer.set_num_channels(64)
@@ -134,7 +136,6 @@ def main():
                     tile_rects.append(pygame.Rect(x * TILE_SIZE,y * TILE_SIZE,TILE_SIZE, TILE_SIZE))
             
             y +=1
-
         display.blit((map_image), (32-scroll[0],0-scroll[1]))
         
 
@@ -185,6 +186,18 @@ def main():
 
             screen.blit(label,(5,5))
 
+        etkot.render(display,scroll)
+        if etkot.collision_test(player.obj.rect):
+            player.set_pos(130, 235)
+            moving_right = False
+            moving_left = False
+            moving_up = False
+            moving_down = False
+            print("Mennään etkoille!")
+            PUHELIN = Muisti_Peli.muistipelimg()
+            if PUHELIN == True:
+                print("SAit puhelimen")
+
         sauna.render(display,scroll)
         if sauna.collision_test(player.obj.rect):
             player.set_pos(3755, 55)
@@ -215,7 +228,6 @@ def main():
                 screen.blit(gwin_font.render(gardem_win_text, True, (245,245,245)), gwin_textdest)
             else:
                 print("hävisit!")
-        
         for event in pygame.event.get(): # event loop
             if event.type == QUIT:
                 pygame.quit()
@@ -249,7 +261,6 @@ def main():
                 if event.key == pygame.K_DOWN or event.key == ord('s'):
                     #print("down")
                     moving_down = False
-            
         screen.blit(pygame.transform.scale(display,WINDOW_SIZE),(0,0))
         pygame.display.update()
         clock.tick(60)
