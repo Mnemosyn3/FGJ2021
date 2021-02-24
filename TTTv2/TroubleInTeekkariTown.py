@@ -61,6 +61,7 @@ teksti = button_obj((475,1115))
 
 sauna = button_obj((3755,45))
 etkot = button_obj((110,235))
+etkotnappi = button_obj((170,235))
 garden1 = button_obj((2675,1325))
 garden2 = button_obj((2675,1300))
 garden3 = button_obj((2675,1350))
@@ -141,13 +142,13 @@ def main():
 
         player_movement = [0,0]
         if moving_right == True:
-            player_movement[0] += 2
+            player_movement[0] += 4
         if moving_left == True:
-            player_movement[0] -= 2
+            player_movement[0] -= 4
         if moving_up:
-            player_movement[1]-=2
+            player_movement[1]-=4
         if moving_down:
-            player_movement[1]+=2
+            player_movement[1]+=4
         
         
 
@@ -176,8 +177,16 @@ def main():
         koti.render(display,scroll)
         if koti.collision_test(player.obj.rect):
             if AVAIN == 1 and KYYKKAWIN == True and PUHELIN == True:
-                player.set_pos(475,1115)
                 endingtext.time = 300
+            else:
+                koti.time = 400
+            if koti.time > 0:
+                imgfont = pygame.font.SysFont(None, 15)
+                img = imgfont.render("You don't have all of your things yet!", True, (255, 255, 255))
+                rect = img.get_rect()
+                pygame.draw.rect(img, (0,0,255), rect, 1)
+                display.blit(img,(20,20))
+                koti.time -= 1
         kyykkafont = pygame.font.SysFont(None, 20)
         if endingtext.time > 0:
             imgending = kyykkafont.render("You Won!", True, (255,255,255))
@@ -190,16 +199,37 @@ def main():
 
         metsa.render(display,scroll)
         if metsa.collision_test(player.obj.rect):
-            player.set_pos(75,2100)
-
+            player.set_pos(75,2050)
+            metsa.time = 400
+        if metsa.time > 0:
+            imgfont = pygame.font.SysFont(None, 15)
+            img = imgfont.render("You got lost in the forest, try to find your way out!", True, (255, 255, 255))
+            rect = img.get_rect()
+            pygame.draw.rect(img, (0,0,255), rect, 1)
+            display.blit(img,(20,20))
+            metsa.time -= 1
         jatkot.render(display,scroll)
         if jatkot.collision_test(player.obj.rect):
-            player.set_pos(475,1115)
-
+            player.set_pos(475,1170)
+            jatkot.time = 400
+        if jatkot.time > 0:
+            imgfont = pygame.font.SysFont(None, 13)
+            img = imgfont.render("You went to another party and drank so much that you woke up at the bar!", True, (255, 255, 255))
+            rect = img.get_rect()
+            pygame.draw.rect(img, (0,0,255), rect, 1)
+            display.blit(img,(20,20))
+            jatkot.time -= 1           
         strippiklubi.render(display,scroll)
         if strippiklubi.collision_test(player.obj.rect):
-            player.set_pos(475,1115)
-
+            player.set_pos(475,1170)
+            strippiklubi.time = 400
+        if strippiklubi.time > 0:
+            imgfont = pygame.font.SysFont(None, 15)
+            img = imgfont.render("You went to a strip-club and after that woke up at the bar!", True, (255, 255, 255))
+            rect = img.get_rect()
+            pygame.draw.rect(img, (0,0,255), rect, 1)
+            display.blit(img,(20,20))
+            strippiklubi.time -= 1
         teksti.render(display,scroll)
         if teksti.collision_test(player.obj.rect):
             
@@ -207,7 +237,7 @@ def main():
             teksti.time = 300
         if teksti.time > 0:
             imgfont = pygame.font.SysFont(None, 15)  
-            img = imgfont.render("You are drunk, try to find your stuff and go home", True, (255, 255, 255))
+            img = imgfont.render("You are drunk, try to find your stuff and go home!", True, (255, 255, 255))
             rect = img.get_rect()
             pygame.draw.rect(img, (0,0,255), rect, 1)
 
@@ -224,7 +254,16 @@ def main():
             PUHELIN = Muisti_Peli.muistipelimg()
             if PUHELIN == True:
                 print("SAit puhelimen")
-
+        etkotnappi.render(display,scroll)
+        if etkotnappi.collision_test(player.obj.rect) and PUHELIN == False:
+            etkotnappi.time = 300
+        if etkotnappi.time > 0:
+            imgfont = pygame.font.SysFont(None, 15)
+            img = imgfont.render("You have a faint memory of leaving your phone here...", True, (255, 255, 255))
+            rect = img.get_rect()
+            pygame.draw.rect(img, (0,0,255), rect, 1)
+            display.blit(img,(20,20))
+            etkotnappi.time -= 1
         sauna.render(display,scroll)
         saunateksti.render(display,scroll)
         if sauna.collision_test(player.obj.rect):
