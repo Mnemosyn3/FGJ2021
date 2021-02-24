@@ -45,7 +45,7 @@ class button_obj():
     def collision_test(self, rect):
         button_rect = self.get_rect()
         return button_rect.colliderect(rect)
-jumper_img = pygame.image.load("data/images/jumper.png")
+jumper_img = pygame.image.load("data/images/nappi.png")
 game_map = load_map('data/map/MAPV1')
 map_image = pygame.image.load("data/map/MAPv1.png")
 e.load_animations('data/images/entities/')
