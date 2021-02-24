@@ -42,6 +42,8 @@ class Control:
             self.event_loop()
             self.update(delta_time)
             pygame.display.update()
+        avain = self.state.cleanup()
+        return avain
              
 class MenuManager:
     def __init__(self):
@@ -53,7 +55,7 @@ class MenuManager:
          
     def draw_menu(self, screen):
         #Kuvat sun muut
-        sauna_image = pygame.image.load("data/images/sauna.jpg")
+        sauna_image = pygame.image.load("data\images\sauna.jpg")
         dest = (0, 0)
         screen.blit(sauna_image, dest)
         info = 'You are in a teekkarisauna!'
@@ -135,7 +137,7 @@ class Menu(States, MenuManager):
         States.__init__(self)
         MenuManager.__init__(self)
         self.next = 'options'
-        self.options = ['Choose a key', 'Go back']
+        self.options = ['Choose a key']
         self.next_list = ['options']
         self.pre_render_options()
         self.from_bottom = 200
@@ -163,7 +165,7 @@ class Options(States, MenuManager):
         States.__init__(self)
         MenuManager.__init__(self)
         self.next = 'end'
-        self.options = ['Key - Laserpuisto', 'Key - Punkkerikatu', 'Key - Timppa', 'Return']
+        self.options = ['Key - Laserpuisto', 'Key - Punkkerikatu', 'Key - Timppa']
         self.next_list = ['end1', 'end2', 'end3', 'menu']
         self.from_bottom = 200
         self.spacer = 75
@@ -203,6 +205,8 @@ class End1(States, MenuManager):
         self.pre_render_options()
     def cleanup(self):
         print('cleaning up End1 state stuff')
+        avain = 1
+        return(avain)
     def startup(self):
         print('starting End1 state stuff')
     def get_event(self, event):
@@ -232,6 +236,8 @@ class End2(States, MenuManager):
         self.pre_render_options()
     def cleanup(self):
         print('cleaning up End2 state stuff')
+        avain = 2
+        return(avain)
     def startup(self):
         print('starting End2 state stuff')
     def get_event(self, event):
@@ -261,6 +267,8 @@ class End3(States, MenuManager):
         self.pre_render_options()
     def cleanup(self):
         print('cleaning up End3 state stuff')
+        avain = 3
+        return(avain)
     def startup(self):
         print('starting End3 state stuff')
     def get_event(self, event):
@@ -277,6 +285,7 @@ class End3(States, MenuManager):
 
  #Itse ohjelma
 def minigame_key():
+    avain = 0
     app = Control()
     #mahd. valikkopaikat
     state_dict = {
@@ -287,8 +296,5 @@ def minigame_key():
         'end3': End3()
     }
     app.setup_states(state_dict, 'menu')
-    app.main_game_loop()
-    AVAIN = random.randint(1,3)
-    return AVAIN
-#AVAIN = minigame_key()
-#print(AVAIN)
+    avain = app.main_game_loop()
+    return avain

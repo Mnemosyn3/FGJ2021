@@ -6,7 +6,9 @@ import Muisti_Peli
 clock = pygame.time.Clock()
 
 from pygame.locals import *
-
+pygame.mixer.pre_init(44100, -16, 2, 512)
+pygame.init() # initiates pygame
+pygame.mixer.set_num_channels(64)
 WINDOW_SIZE = (600,400)
 
 screen = pygame.display.set_mode(WINDOW_SIZE,0,32) # initiate the window
@@ -43,13 +45,14 @@ class button_obj():
     def collision_test(self, rect):
         button_rect = self.get_rect()
         return button_rect.colliderect(rect)
-jumper_img = pygame.image.load("data/images/jumper.png")
+jumper_img = pygame.image.load("data/images/nappi.png")
 game_map = load_map('data/map/MAPV1')
 map_image = pygame.image.load("data/map/MAPv1.png")
 e.load_animations('data/images/entities/')
 
-pygame.mixer.music.load('data/audio/music.wav')
-#pygame.mixer.music.play(-1)
+grass_sounds = [pygame.mixer.Sound('data/audio/grass_0.wav'),pygame.mixer.Sound('data/audio/grass_1.wav')]
+grass_sounds[0].set_volume(0.2)
+grass_sounds[1].set_volume(0.2)
 
 
 
@@ -81,7 +84,7 @@ def main():
     KYYKKAWIN = False
     PUHELIN = False
     
-
+    grass_sound_timer = 0
     pygame.display.set_caption('Trouble in Teekkari Town')
 
     WINDOW_SIZE = (1000,900)
@@ -108,7 +111,8 @@ def main():
     while True: # game loop
         display.fill((0,0,0)) # clear screen by filling it with black
 
-        
+        if grass_sound_timer > 0:
+            grass_sound_timer -= 1
 
         true_scroll[0] += (player.x-true_scroll[0]-152)/20
         true_scroll[1] += (player.y-true_scroll[1]-106)/20
@@ -169,7 +173,10 @@ def main():
 
         collision_types = player.move(player_movement,tile_rects)
 
-        
+        if player_movement[0] != 0 or player_movement[1] != 0:
+            if grass_sound_timer == 0:
+                grass_sound_timer = 30
+                random.choice(grass_sounds).play()
 
         player.change_frame(1)
         player.display(display,scroll)
