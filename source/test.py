@@ -1,1 +1,0 @@
-print("Tämä on teksti.")
